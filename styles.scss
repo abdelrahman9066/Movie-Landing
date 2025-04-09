@@ -1,0 +1,326 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    width: 90%;
+    margin: 0px auto;
+}
+
+.main {
+    width: 100%;
+    height: 100vh;
+}
+
+// Navbar start
+.navbar {
+    display: flex;
+    // justify-content: space-between;
+    // align-items: center;
+    padding: 30px 0;
+    .links {
+        font-size: 15px;
+        
+        li {
+            color: white;
+            list-style: none;
+            display: inline-block;
+            margin: 0 20px;
+            position: relative;
+
+            &::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 2px;
+                bottom: -5px;
+                right: 0;
+                background-color: white;
+                transition: 0.3s;
+            }
+
+            &:hover::after {
+                width: 100%;
+                left: 0;
+                right: auto;
+            }
+
+            &.search-icon {
+                color: white;
+                position: relative;
+                cursor: pointer;
+
+                .search-container {
+                    display: none;
+                    position: absolute;
+                    right: 0;
+                    background: black;
+                    opacity: 0.9;
+                    padding: 10px;
+                    border-radius: 5px;
+                    width: 250px;
+                    z-index: 1;
+
+                    .search-input {
+                        color: white;
+                        padding: 5px;
+                        border: 1px solid #f5df1c;
+                        background: #111;
+                        border-radius: 3px;
+                    }
+
+                    .search-button {
+                        background: #f5df1c;
+                        color: black;
+                        border: none;
+                        padding: 5px;
+                        border-radius: 3px;
+                        cursor: pointer;
+                        font-weight: bold;
+                    }
+                }
+
+                &:hover .search-container {
+                    display: block;
+                }
+            }
+        }
+
+
+    }
+
+    .logo {
+        // display: flex;
+        // align-items: center;
+        flex-grow: 1;
+        font-weight: 700;
+        font-size: 20px;
+        color: #f5df1c;
+        // margin: 20px 20px 0 0px;
+
+        .log {
+            background-color: #f5df1c;
+            padding: 2px 5px;
+            color: black;
+            border-radius: 3px;
+            margin-right: 6px;
+            font-size: 20px;
+        }
+    }
+
+}
+
+// Navbar end
+// Main start
+// .background {
+//     img{
+//         position: absolute;
+//         top: 0;
+//         background-size: cover;
+//         width: 100%;
+//         height: 100%;
+//         z-index: -1;
+//     }
+//     .overlay {
+//         position: absolute;
+//         top: 0;
+//         width: 100%;
+//         height: 100%;
+//         background: linear-gradient(to left, rgba(0, 0, 0, 0.349) 0%, black 100%);
+//         z-index: -1;
+//     }
+
+// }
+// Main end
+// Main content start
+.details {
+    // position: absolute;  loooooookk again
+    
+    margin: 40px 0;
+    color: white;
+
+    .text {
+        font-size: 40px;
+        font-weight: 700;
+        margin: 50px 0;
+    }
+
+    .rate {
+        display: flex;
+        gap: 5px;
+        font-size: 15px;
+        align-items: center;
+
+        .imdb {
+            font-size: 20px;
+            background-color: #f5df1c;
+            color: black;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 800;
+        }
+
+    }
+
+    .vote_count {
+        opacity: 40%;
+    }
+
+    .info {
+       
+        margin: 30px 0;
+        height: 60px; // to limit the height of the info section
+        width: 50%; 
+        overflow: hidden;
+    }
+
+    .buttons {
+        margin: 20px 0;
+        display: flex;
+        gap: 15px;
+        button {
+            background-color: #f5df1c;
+            color: black;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+        }
+
+        .Trailer {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+
+        i {
+            position: relative;
+            right: 5px;
+        }
+
+    }
+
+    .switch-buttons {
+        margin-top: 60px;
+
+        button {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    }
+}
+
+// Main content end
+// Cards start
+.cards-container {
+    display: flex;
+    gap: 25px;
+    padding: 30px  0px;
+    align-items: center;
+    overflow: hidden;
+
+    .card {
+        min-width: 210px;
+        height: 300px;
+        transition: 0.3s;
+        opacity: 0.6;
+
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+        }
+    }
+
+    .card.active {
+        transform: translateY(-20px);
+        opacity: 1;
+    }
+    .card:hover{
+        transform: translateY(-20px);
+    }
+}
+
+// Cards end
+// Responsive Design
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        .links {
+            flex-wrap: wrap;
+            font-size: 10px;
+            margin-top: 10px;
+            display: none;
+        }
+        .logo {
+            font-size: 15px;
+
+            .log {
+                font-size: 15px;
+            }
+        }
+    }
+
+    .details {
+
+        .text {
+            font-size: 25px;
+            height: 100px;
+        
+        }
+
+        .info{
+            width: 100%;
+            height: 80px;
+        }
+
+        .buttons {
+            button {
+                font-size: 10px;
+                padding: 8px 15px;
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        .logo {
+            font-size: 15px;
+
+            .log {
+                font-size: 15px;
+            }
+        }
+    }
+    .details {
+
+        .text {
+            font-size: 20px;
+            height: 50px;
+
+        }
+        .info{
+            width: 100%;
+            height: 80px;
+        }
+    }
+
+
+    .cards-container {
+        .card {
+            min-width: 210px;
+            height: 300px;
+        }
+    }
+}

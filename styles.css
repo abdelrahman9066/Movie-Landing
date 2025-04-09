@@ -1,0 +1,239 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+.container {
+  width: 90%;
+  margin: 0px auto;
+}
+
+.main {
+  width: 100%;
+  height: 100vh;
+}
+
+.navbar {
+  display: flex;
+  padding: 30px 0;
+}
+.navbar .links {
+  font-size: 15px;
+}
+.navbar .links li {
+  color: white;
+  list-style: none;
+  display: inline-block;
+  margin: 0 20px;
+  position: relative;
+}
+.navbar .links li::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  right: 0;
+  background-color: white;
+  transition: 0.3s;
+}
+.navbar .links li:hover::after {
+  width: 100%;
+  left: 0;
+  right: auto;
+}
+.navbar .links li.search-icon {
+  color: white;
+  position: relative;
+  cursor: pointer;
+}
+.navbar .links li.search-icon .search-container {
+  display: none;
+  position: absolute;
+  right: 0;
+  background: black;
+  opacity: 0.9;
+  padding: 10px;
+  border-radius: 5px;
+  width: 250px;
+  z-index: 1;
+}
+.navbar .links li.search-icon .search-container .search-input {
+  color: white;
+  padding: 5px;
+  border: 1px solid #f5df1c;
+  background: #111;
+  border-radius: 3px;
+}
+.navbar .links li.search-icon .search-container .search-button {
+  background: #f5df1c;
+  color: black;
+  border: none;
+  padding: 5px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.navbar .links li.search-icon:hover .search-container {
+  display: block;
+}
+.navbar .logo {
+  flex-grow: 1;
+  font-weight: 700;
+  font-size: 20px;
+  color: #f5df1c;
+}
+.navbar .logo .log {
+  background-color: #f5df1c;
+  padding: 2px 5px;
+  color: black;
+  border-radius: 3px;
+  margin-right: 6px;
+  font-size: 20px;
+}
+
+.details {
+  margin: 40px 0;
+  color: white;
+}
+.details .text {
+  font-size: 40px;
+  font-weight: 700;
+  margin: 50px 0;
+}
+.details .rate {
+  display: flex;
+  gap: 5px;
+  font-size: 15px;
+  align-items: center;
+}
+.details .rate .imdb {
+  font-size: 20px;
+  background-color: #f5df1c;
+  color: black;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-weight: 800;
+}
+.details .vote_count {
+  opacity: 40%;
+}
+.details .info {
+  margin: 30px 0;
+  height: 60px;
+  width: 50%;
+  overflow: hidden;
+}
+.details .buttons {
+  margin: 20px 0;
+  display: flex;
+  gap: 15px;
+}
+.details .buttons button {
+  background-color: #f5df1c;
+  color: black;
+  padding: 15px 30px;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+}
+.details .buttons .Trailer {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+}
+.details .buttons i {
+  position: relative;
+  right: 5px;
+}
+.details .switch-buttons {
+  margin-top: 60px;
+}
+.details .switch-buttons button {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cards-container {
+  display: flex;
+  gap: 25px;
+  padding: 30px 0px;
+  align-items: center;
+  overflow: hidden;
+}
+.cards-container .card {
+  min-width: 210px;
+  height: 300px;
+  transition: 0.3s;
+  opacity: 0.6;
+}
+.cards-container .card img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+.cards-container .card.active {
+  transform: translateY(-20px);
+  opacity: 1;
+}
+.cards-container .card:hover {
+  transform: translateY(-20px);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+  }
+  .navbar .links {
+    flex-wrap: wrap;
+    font-size: 10px;
+    margin-top: 10px;
+    display: none;
+  }
+  .navbar .logo {
+    font-size: 15px;
+  }
+  .navbar .logo .log {
+    font-size: 15px;
+  }
+  .details .text {
+    font-size: 25px;
+    height: 100px;
+  }
+  .details .info {
+    width: 100%;
+    height: 80px;
+  }
+  .details .buttons button {
+    font-size: 10px;
+    padding: 8px 15px;
+  }
+}
+@media (max-width: 480px) {
+  .navbar .logo {
+    font-size: 15px;
+  }
+  .navbar .logo .log {
+    font-size: 15px;
+  }
+  .details .text {
+    font-size: 20px;
+    height: 50px;
+  }
+  .details .info {
+    width: 100%;
+    height: 80px;
+  }
+  .cards-container .card {
+    min-width: 210px;
+    height: 300px;
+  }
+}/*# sourceMappingURL=styles.css.map */

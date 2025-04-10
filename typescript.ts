@@ -16,6 +16,7 @@ class MovieApp {
     private searchIcon = document.querySelector<HTMLElement>('.search-icon')!;
     private searchInput = document.querySelector<HTMLInputElement>('.search-input')!;
     private searchButton = document.querySelector<HTMLElement>('.search-button')!;
+    private searchContainer = document.querySelector<HTMLElement>('.search-container')!;
 
     constructor() {
         this.setupListeners();
@@ -27,14 +28,36 @@ class MovieApp {
             fetch(`https://api.themoviedb.org/3/search/movie?api_key=21d6601622ce880a80939f3c1823ce8e&query=${query}`)
                 .then(response => response.json())
                 .then(data => {
-                    this.moviesData = data.results.slice(0, 15);
-                this.currentMovieIndex = 0;
-                this.updateUI();
+                    this.moviesData = data.results;
+                    this.createCards();
+                    this.currentMovieIndex = 0;
+                    this.updateUI();
                 });          
             
         } catch (error) {
             console.error('Error fetching movies:', error);
         }
+    }
+
+    private createCards(): void {
+        // Clear existing cards
+        this.cardsContainer.innerHTML = '';
+        
+        // Create new cards for each movie
+        this.moviesData.forEach((movie, index) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            if (index === this.currentMovieIndex) {
+                card.classList.add('active');
+            }
+            
+            const img = document.createElement('img');
+            img.src = `https://image.tmdb.org/t/p/w220_and_h330_face${movie.poster_path || movie.backdrop_path}`;
+            img.alt = movie.title;
+            
+            card.appendChild(img);
+            this.cardsContainer.appendChild(card);
+        });
     }
 
     private updateUI(): void {
@@ -45,22 +68,16 @@ class MovieApp {
         this.voteCount.textContent = `(${mainMovie.vote_count})`;
         this.releaseYear.textContent = new Date(mainMovie.release_date).getFullYear().toString();
         
-        // change background image to poster path using background css 
         this.backgroundImg.style.background = `linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)),url(https://image.tmdb.org/t/p/original${mainMovie.backdrop_path || mainMovie.poster_path}) no-repeat center/cover fixed`;
         this.overview.textContent = mainMovie.overview || 'No overview available.';
 
+        // Update active card
         const cards = document.querySelectorAll<HTMLElement>('.card');
         cards.forEach((card, index) => {
-            if (this.moviesData[index]) {
-                let img = card.querySelector<HTMLImageElement>('img')!;
-                img.src = `https://image.tmdb.org/t/p/w220_and_h330_face${this.moviesData[index].poster_path || this.moviesData[index].backdrop_path}`;
-            }
             if (index === this.currentMovieIndex) {
                 card.classList.add('active');
-                
             } else {
                 card.classList.remove('active');
-                
             }
         });
     }
@@ -89,7 +106,7 @@ class MovieApp {
         this.updateUI();
         this.cardsContainer.scrollBy({ top: 0, left: -150, behavior: 'smooth' });
         if (this.currentMovieIndex === this.moviesData.length - 1) {
-            this.cardsContainer.scrollTo({ top: 0, left: 150 * 10, behavior: 'smooth' });
+            this.cardsContainer.scrollTo({ top: 0, left: 150 * this.moviesData.length, behavior: 'smooth' });
         }
     }
 

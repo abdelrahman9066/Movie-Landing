@@ -16,6 +16,7 @@ var MovieApp = /** @class */ (function () {
         this.searchIcon = document.querySelector('.search-icon');
         this.searchInput = document.querySelector('.search-input');
         this.searchButton = document.querySelector('.search-button');
+        this.searchContainer = document.querySelector('.search-container');
         this.setupListeners();
         this.fetchMovies();
     }
@@ -26,7 +27,8 @@ var MovieApp = /** @class */ (function () {
             fetch("https://api.themoviedb.org/3/search/movie?api_key=21d6601622ce880a80939f3c1823ce8e&query=".concat(query))
                 .then(function (response) { return response.json(); })
                 .then(function (data) {
-                _this.moviesData = data.results.slice(0, 15);
+                _this.moviesData = data.results;
+                _this.createCards();
                 _this.currentMovieIndex = 0;
                 _this.updateUI();
             });
@@ -35,6 +37,24 @@ var MovieApp = /** @class */ (function () {
             console.error('Error fetching movies:', error);
         }
     };
+    MovieApp.prototype.createCards = function () {
+        var _this = this;
+        // Clear existing cards
+        this.cardsContainer.innerHTML = '';
+        // Create new cards for each movie
+        this.moviesData.forEach(function (movie, index) {
+            var card = document.createElement('div');
+            card.className = 'card';
+            if (index === _this.currentMovieIndex) {
+                card.classList.add('active');
+            }
+            var img = document.createElement('img');
+            img.src = "https://image.tmdb.org/t/p/w220_and_h330_face".concat(movie.poster_path || movie.backdrop_path);
+            img.alt = movie.title;
+            card.appendChild(img);
+            _this.cardsContainer.appendChild(card);
+        });
+    };
     MovieApp.prototype.updateUI = function () {
         var _this = this;
         var mainMovie = this.moviesData[this.currentMovieIndex];
@@ -42,15 +62,11 @@ var MovieApp = /** @class */ (function () {
         this.imdbRating.textContent = mainMovie.vote_average.toFixed(2);
         this.voteCount.textContent = "(".concat(mainMovie.vote_count, ")");
         this.releaseYear.textContent = new Date(mainMovie.release_date).getFullYear().toString();
-        // change background image to poster path using background css 
         this.backgroundImg.style.background = "linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)),url(https://image.tmdb.org/t/p/original".concat(mainMovie.backdrop_path || mainMovie.poster_path, ") no-repeat center/cover fixed");
         this.overview.textContent = mainMovie.overview || 'No overview available.';
+        // Update active card
         var cards = document.querySelectorAll('.card');
         cards.forEach(function (card, index) {
-            if (_this.moviesData[index]) {
-                var img = card.querySelector('img');
-                img.src = "https://image.tmdb.org/t/p/w220_and_h330_face".concat(_this.moviesData[index].poster_path || _this.moviesData[index].backdrop_path);
-            }
             if (index === _this.currentMovieIndex) {
                 card.classList.add('active');
             }
@@ -84,7 +100,7 @@ var MovieApp = /** @class */ (function () {
         this.updateUI();
         this.cardsContainer.scrollBy({ top: 0, left: -150, behavior: 'smooth' });
         if (this.currentMovieIndex === this.moviesData.length - 1) {
-            this.cardsContainer.scrollTo({ top: 0, left: 150 * 10, behavior: 'smooth' });
+            this.cardsContainer.scrollTo({ top: 0, left: 150 * this.moviesData.length, behavior: 'smooth' });
         }
     };
     MovieApp.prototype.handleNextClick = function () {

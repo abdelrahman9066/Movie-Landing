@@ -90,6 +90,8 @@ var MovieApp = /** @class */ (function () {
             if (event.key === 'Enter') {
                 var query = _this.searchInput.value.trim();
                 if (query) {
+                    _this.currentMovieIndex = 0;
+                    _this.updateUI();
                     _this.fetchMovies(query);
                 }
             }

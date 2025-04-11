@@ -96,6 +96,8 @@ class MovieApp {
             if (event.key === 'Enter') {
                 const query = this.searchInput.value.trim();
                 if (query) {
+                    this.currentMovieIndex = 0;
+                    this.updateUI();
                     this.fetchMovies(query);}
                     }
         });
